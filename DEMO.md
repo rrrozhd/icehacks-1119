@@ -10,11 +10,11 @@ To follow it exactly, open `index.html#easy/offline-check-0`.
 
 > You push a puck on ice and it will not stop until something stops it. That makes a small board surprisingly hard. And it makes one question matter: can this level even be solved?
 >
-> Most puzzle games answer that by having a person draw every level and test it by hand. Frostline never draws a level. The computer makes each one, and proves it can be solved before you see it.
+> A designer could draw every level and test each one by hand. Frostline never draws a level. The computer makes each one, and proves it can be solved before you see it.
 
 ## The demo (about 1 minute 45 seconds)
 
-*On screen: press the up arrow key, then the right arrow key. The line under the score reads "Slid right 1 square, stopped on snow."*
+*On screen: click the board, or press Tab until it shows its focus ring. Then press the up arrow key and the right arrow key. The line under the score reads "Slid right 1 square, stopped on snow."*
 
 > Here is an easy level. Arrow keys, swipes or these on-screen arrows all slide the puck. It stops at a wall or a rock, and a snow patch holds it.
 
@@ -30,7 +30,7 @@ To follow it exactly, open `index.html#easy/offline-check-0`.
 
 > Or I can watch a shortest solution, and then I am put back where I was to finish it myself.
 
-*On screen: slide right, then down. The line reads "Solved at par!" and Next level appears.*
+*On screen: click the on-screen right arrow, then the on-screen down arrow. The line reads "Solved at par!" and Next level appears.*
 
 > Four slides, and par was four. It tells me so and offers the next level.
 
@@ -38,9 +38,9 @@ To follow it exactly, open `index.html#easy/offline-check-0`.
 
 > Hard levels need eight to twelve slides. There is Undo and Restart when a plan goes wrong.
 
-*On screen: press Daily. The line reads "Daily puzzle" and today's date. Open "Link to this level" in a new tab: the same board appears.*
+*On screen: press Daily. The line reads "Daily puzzle" and today's date. Open "Link to this level" in a new tab: the same board appears. Point at the code at the end of the address.*
 
-> The daily level is the same for everyone today. And every level has a link, so I can send a friend the exact board that beat me.
+> The daily level is the same for everyone today. And every level has a short code at the end of its address. A friend adds that code to their own copy and gets the exact board that beat me.
 
 *On screen: turn the network off and reload. The same level is still there.*
 

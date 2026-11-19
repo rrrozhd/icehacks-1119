@@ -9,14 +9,14 @@ A practice entry for IceHacks 2026. The event has closed: nothing was registered
 You slide a puck across a board of ice to reach the exit.
 
 - The puck does not stop when you want it to. It keeps sliding until a wall or a rock is in the way, a snow patch holds it, or it reaches the exit.
-- No level is drawn by hand and none is stored in this repository. Each one is made from a seed, a short piece of text, so the same seed always gives the same level.
+- No level you play is drawn by hand or stored in this repository. Each one is made from a seed, a short piece of text, so the same seed always gives the same level. (The only hand-drawn boards are a few tiny ones in the tests.)
 - Before a level is shown, a solver searches it. That gives two promises: the level can be solved, and its **par**, the fewest moves that solve it, is known exactly.
 - Three difficulties, set by par: easy is 3 or 4 moves, medium is 5 to 7, hard is 8 to 12.
 - A daily level is the same for everyone on the same date.
 - The page counts your moves against par and tells you how you did when you finish.
 - You can undo, restart or ask for a hint. A hint is the next move of a shortest solution from where the puck is right now, not from the start.
 - "Show me" plays a shortest solution on the board, then puts the puck back where you had it so you can carry on.
-- Every level has a link that opens the same level again, so you can send a friend the one that beat you. A daily level's link names its date, so it still opens the same level tomorrow.
+- Every level has a short code at the end of its address, such as `#easy/offline-check-0`, and "Link to this level" opens the same level again. To share a level, send the code: a friend with their own copy of the game adds it to the end of their own address and gets the same board. A daily level's code names its date, so it still gives the same level tomorrow.
 - It plays with arrow keys (or W, A, S, D), swipes, or on-screen buttons. Each move is also put into words for screen readers, such as "Slid right 2 squares, stopped on snow."
 - No sign-in. Nothing leaves your browser.
 
@@ -45,7 +45,7 @@ Plain HTML, CSS and JavaScript in four small parts, each with one job.
 
 The puck can only come to rest in a few places on a board. The solver starts from where the puck is and tries all four directions, then all four from each new resting place, and so on, one move further out each round. This is called a breadth-first search. The first time it reaches the exit, it has found a shortest solution, because every shorter list of moves was already tried.
 
-The level maker scatters rocks and snow on a 9 by 9 board from the seed, picks a start and an exit, and asks the solver for par. It keeps the first board whose par fits the difficulty and throws the rest away. An easy level takes about 4 tries, a medium about 7 and a hard one about 41. All of it takes around 2 thousandths of a second, so you never wait.
+The level maker scatters rocks and snow on a 9 by 9 board from the seed, picks a start and an exit, and asks the solver for par. It keeps the first board whose par fits the difficulty and throws the rest away. An easy level takes about 4 tries, a medium about 7 and a hard one about 41. There is no fixed limit on the number of tries; in our measurements the slowest level took about 2 thousandths of a second to make.
 
 ### No traps
 
