@@ -1,0 +1,181 @@
+:root {
+  color-scheme: light;
+  --bg: #f6f4ea;
+  --fg: #172e35;
+  --muted: #465b5c;
+  --accent: #b4441a;
+  --ice: #bcdde4;
+  --rock: #415b63;
+  --snow: #fcfbf4;
+  --gap: 2px;
+  --radius: 2px;
+  --line: #adbab3;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color: var(--fg);
+  background: var(--bg);
+  font: 16px/1.4 "DM Sans", "Avenir Next", "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+body, h1, dl, dd, p, ul { margin: 0; }
+[hidden] { display: none !important; }
+button, select { font: inherit; color: inherit; }
+button, select, a { -webkit-tap-highlight-color: transparent; }
+button, select {
+  min-height: 42px;
+  padding: 5px 14px;
+  background: transparent;
+  border: 1px solid #7d908b;
+  border-radius: 3px;
+  font-weight: 650;
+  cursor: pointer;
+}
+button:disabled { color: #526461; cursor: default; border-style: dashed; }
+button:enabled:hover, select:hover { background: #e2e8df; }
+button:enabled:active { background: #cddbd3; }
+a { color: var(--fg); text-underline-offset: 3px; }
+:where(button, select, a):focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.page { width: min(100% - 72px, 1060px); margin: 0 auto; }
+.masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 94px;
+  border-bottom: 2px solid var(--fg);
+}
+.brand, .level-tools { display: flex; align-items: center; }
+.brand { gap: 12px; }
+h1 {
+  font: italic 800 clamp(38px, 5.3vw, 68px)/1 "Gloock", Georgia, serif;
+  letter-spacing: -.07em;
+}
+.peak {
+  width: 44px;
+  height: 38px;
+  background: repeating-linear-gradient(160deg, var(--accent) 0 5px, transparent 5px 7px);
+  clip-path: polygon(0 100%, 45% 4%, 60% 40%, 72% 19%, 100% 100%);
+}
+.level-tools { gap: 8px; }
+#daily[aria-pressed="true"], #new-level, #next-level {
+  color: var(--snow);
+  background: var(--fg);
+  border-color: var(--fg);
+}
+#new-level:hover, #next-level:hover, #daily[aria-pressed="true"]:hover { background: #314a51; }
+
+.play-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 76px);
+  padding: clamp(22px, 5vh, 42px) 0 24px;
+}
+.rink { min-width: 0; }
+.ice-frame {
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  border: 1px solid #a6b8b7;
+  background-color: #e0e8e4;
+  background-image: radial-gradient(#a6b5ad 0.8px, transparent 0.9px);
+  background-size: 8px 8px;
+}
+#board {
+  display: grid;
+  align-content: center;
+  width: min(100%, max(200px, calc(100svh - 258px)));
+  aspect-ratio: 1;
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 3vw, 36px);
+  padding: 12px 0 0;
+  list-style: none;
+  color: var(--muted);
+  font: 650 12px/1.25 var(--mono);
+}
+.legend li { display: flex; align-items: center; gap: 6px; }
+.legend i { width: 15px; height: 15px; display: inline-block; }
+.key-puck { border: 2px solid var(--snow); border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.key-rock { background: var(--rock); border-radius: 38% 52% 44% 56%; }
+.key-snow { border: 1px solid #799293; background: radial-gradient(var(--rock) 1px, var(--snow) 1.2px) 0 0 / 4px 4px; }
+.key-exit { border-radius: 50%; background: radial-gradient(var(--fg) 0 19%, transparent 21% 35%, var(--fg) 37% 52%, transparent 54% 65%, var(--fg) 67%); }
+
+.console { min-width: 0; }
+.score { display: flex; gap: 40px; padding-bottom: 14px; }
+.score div { display: flex; flex-direction: column; }
+.score dt { color: var(--muted); font: 650 12px/1.2 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+.score dd { font: 750 clamp(40px, 4.1vw, 58px)/1.06 "IBM Plex Mono", Menlo, monospace; letter-spacing: -.08em; }
+#status {
+  border-left: 3px solid var(--accent);
+  min-height: 2.9em;
+  padding: 3px 0 3px 12px;
+  display: flex;
+  align-items: center;
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+.rules { margin: 18px 0 20px; color: var(--muted); max-width: 42ch; }
+.controls {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2vw, 32px);
+  padding-block: 18px;
+  border-block: 1px solid var(--line);
+}
+.directions, .actions { display: grid; gap: 5px; }
+.directions { flex: none; grid-template-columns: repeat(3, 40px); }
+.directions button {
+  padding: 0;
+  min-height: 38px;
+  font: 700 23px/1 var(--mono);
+  background: #e6ece5;
+}
+.directions [data-dir="up"] { grid-column: 2; }
+.directions [data-dir="left"] { grid-column: 1; }
+.actions { flex: 1; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.actions button { padding: 5px 6px; font-size: 14px; min-height: 38px; }
+.links { display: flex; align-items: center; gap: 18px; margin-top: 14px; min-height: 42px; font-size: 14px; }
+
+@media (max-width: 740px) {
+  .page { width: min(100% - 24px, 480px); }
+  .masthead { min-height: 54px; gap: 6px; }
+  .brand { gap: 5px; }
+  h1 { font-size: clamp(26px, 7.5vw, 38px); }
+  .peak { width: 19px; height: 20px; }
+  .level-tools { gap: 4px; }
+  .level-tools :is(button, select) { font-size: 12px; padding: 5px 6px; min-height: 33px; }
+  .level-tools button { white-space: nowrap; }
+  .play-layout { display: block; padding: 8px 0; }
+  .ice-frame { padding: 7px; }
+  #board { width: min(100%, max(150px, calc(100svh - 336px))); }
+  .legend { padding: 6px 0; font-size: 10px; gap: 18px; }
+  .legend i { width: 11px; height: 11px; }
+  .progress { display: flex; align-items: center; gap: 14px; padding-top: 4px; }
+  .score { flex: none; gap: 12px; padding: 0; }
+  .score dt { font-size: 10px; }
+  .score dd { font-size: 27px; }
+  #status { flex: 1; font-size: 13px; min-height: 36px; padding: 1px 0 1px 8px; }
+  .rules { font-size: 13px; line-height: 1.32; margin: 6px 0 8px; max-width: none; }
+  .controls { gap: 16px; padding-block: 5px; }
+  .directions { grid-template-columns: repeat(3, 39px); }
+  .directions button, .actions button { min-height: 32px; }
+  .actions button { font-size: 13px; }
+  .links { min-height: 29px; margin-top: 4px; font-size: 12px; }
+  #next-level { min-height: 28px; padding: 3px 9px; }
+}
+
+@media (max-width: 350px) {
+  .peak { display: none; }
+  .level-tools .long-label { display: none; }
+  .controls { gap: 9px; }
+  .directions { grid-template-columns: repeat(3, 32px); }
+}
