@@ -12,7 +12,7 @@
   let level;
   let trail = [];
   let sliding = false;
-  let watching = false;
+  let savedTrail = null;
   let run = 0;
 
   const position = () => trail[trail.length - 1];
@@ -21,9 +21,10 @@
   const link = (difficulty, value) => '#' + difficulty + '/' + encodeURIComponent(value);
 
   function paintControls() {
-    const finished = solved() && !sliding;
+    const watching = savedTrail !== null;
+    const finished = solved() && !sliding && !watching;
     const focusNext = finished && arrows.includes(document.activeElement);
-    el('moves').textContent = trail.length - 1;
+    el('moves').textContent = (savedTrail || trail).length - 1;
     el('par').textContent = level.par;
     el('undo').disabled = trail.length === 1 || watching;
     el('hint').disabled = watching || sliding || finished;
@@ -35,7 +36,7 @@
 
   function place(trailToShow) {
     run++;
-    watching = false;
+    savedTrail = null;
     sliding = false;
     trail = trailToShow;
     board.draw(level, position());
@@ -97,18 +98,18 @@
     const stop = { wall: 'at a wall', rock: 'at a rock', snow: 'on snow', exit: 'on the exit' };
     const distance = to.squares + (to.squares === 1 ? ' square' : ' squares');
     status.textContent = 'Slid ' + dir + ' ' + distance + ', stopped ' + stop[to.stoppedBy] + '.' +
-      (solved() ? ' ' + result() : '');
+      (solved() && !savedTrail ? ' ' + result() : '');
     paintControls();
   }
 
   function input(dir) {
-    if (!watching) void slide(dir);
+    if (!savedTrail) void slide(dir);
   }
 
   async function showSolution() {
-    if (watching) {
-      place(trail);
-      status.textContent = 'Playback stopped. You can play from here.';
+    if (savedTrail) {
+      place(savedTrail);
+      status.textContent = 'Playback stopped. Back at your position.';
       return;
     }
     const directions = F.solve(level, level.start);
@@ -116,18 +117,19 @@
       status.textContent = 'No route to the exit. Choose a new level.';
       return;
     }
+    const previous = trail;
     place([level.start]);
     const currentRun = run;
-    watching = true;
+    savedTrail = previous;
     paintControls();
     for (const direction of directions) {
       await slide(direction);
       if (currentRun !== run) return;
-      if (!solved()) await new Promise(resolve => setTimeout(resolve, 300));
+      await new Promise(resolve => setTimeout(resolve, 300));
       if (currentRun !== run) return;
     }
-    watching = false;
-    paintControls();
+    place(savedTrail);
+    status.textContent = 'Shortest route shown in ' + directions.length + ' slides. Back at your position.';
   }
 
   board.onInput = input;
